@@ -554,7 +554,7 @@ easy to read, because that frees up more of your brain to focus on the
 harder parts.
 
 Guidance on good Haskell style can be found in [this course's Style
-Guide](https://cs.anu.edu.au/courses/comp1100/resources/02-style/),
+Guide](https://comp.anu.edu.au/courses/comp1100/resources/04-style/),
 and in [lecture
 notes](https://comp.anu.edu.au/courses/comp1100/lectures/05-2-Code_Quality.pdf).
 
@@ -566,7 +566,7 @@ Ensure that your code is written in good Haskell style.
 ## Technical Report (COMP1100: 20 Marks; COMP1130: 30 Marks)
 
 You are to write a concise [technical
-report](https://cs.anu.edu.au/courses/comp1100/resources/07-reports/)
+report](https://comp.anu.edu.au/courses/comp1100/resources/08-reports/)
 about your assignment.
 
 The **maximum word count** is **1250** for COMP1100 students, and
