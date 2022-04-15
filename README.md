@@ -137,7 +137,7 @@ The test program in `app/Main.hs` uses CodeWorld, just like Assignment
 | `1`          | Reset the simulation to the first test pattern  |
 | `2`          | Reset the simulation to the second test pattern |
 | `3`          | Reset the simulation to the third test pattern  |
-| `Q`          | Switch to Fransson's QR world (COMP1130 only)   |
+| `Q`          | Switch to Fransson's QR World (COMP1130 only)   |
 | `.`          | Evolve one generation of the simulation         |
 | `<Spacebar>` | Evolve multiple generations of the simulation   |
 | `+`          | Make `<Spacebar>` evolve more generations       |
@@ -257,7 +257,7 @@ implement:
 
 * The test program knows how to draw a `Grid` of cells, provided that
   it can be told how to draw a single cell from the grid. It uses
-  `renderQR :: QR -> Picture` to do this, which needs to
+  `renderQR :: QRCell -> Picture` to do this, which needs to
   behave according to the following rules:
 
   - _Dead_ cells shall be drawn as hollow black rectangles, 1x1 in
@@ -812,4 +812,4 @@ to the deadline, you should make sure that:
 * The report is in PDF format, located at the root of your project on
   GitLab and named `Report.pdf`. That capital `R` is important - Linux
   uses a case-sensitive file system. Otherwise, it may not be marked.
-  Check that this has been done successfully **on Gitlab**..
+  Check that this has been done successfully **on Gitlab**.
