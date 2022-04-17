@@ -56,5 +56,10 @@ parseGrid f w h cells
   | length cells == w * h = Grid w h (map f cells)
   | otherwise = error "parseGrid: dimensions don't match"
 
+--Task 1B
 toQR :: Char -> QRCell
-toQR = undefined -- TODO
+toQR cell = case cell of
+  'A' -> Alive
+  ' ' -> Dead
+  _   -> error "toQR: invalid character cell value"
+

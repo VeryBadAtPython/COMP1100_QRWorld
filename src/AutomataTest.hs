@@ -3,14 +3,33 @@ module AutomataTest where
 import Automata
 import Testing
 
+--import TestPatterns -- To test toQR
+
 -- | The list of tests to run. When you define additional test cases,
 -- you must list them here or they will not be checked. You should
 -- remove these examples when submitting the assignment.
 tests :: [Test]
 tests =
-  [ exampleTest
-  , exampleFailure
-  ]
+  cycleQRTests
+  
+-- cycleQR Tests
+cycleQRTests :: [Test]
+cycleQRTests = [Test "cycleQR Alive" (assertEqual (cycleQR Dead) (Alive::QRCell))
+ ,Test "cycleQR Dead" (assertEqual (cycleQR Alive) (Dead::QRCell))]
+
+-- toQR Tests
+{-
+toQRTests :: [Test]
+toQRTests = [Test "toQR \'A\'" (assertEqual (toQR 'A') (Alive::QRCell))
+ ,Test "toQR \' \'" (assertEqual (toQR ' ') (Dead::QRCell))]
+-}
+
+-- renderQR Tests
+{-
+renderQRTests :: [Test]
+renderQRTests = [Test "renderQR Alive" (assertEqual (renderQR: Alive) ((coloured blue  (solidRectangle 1 1))::Picture))
+ ,Test "renderQR Dead" (assertEqual (renderQR: Dead) ((coloured black  (rectangle 1 1))::Picture))]
+-}
 
 -- | Example test case. The String argument to 'Test' is a label that
 -- identifies the test, and gives the reader some idea about what's
