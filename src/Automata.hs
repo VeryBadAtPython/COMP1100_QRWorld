@@ -18,7 +18,7 @@ type GridCoord = (Int, Int)
 data QRCell = Alive | Dead
     deriving (Show,Eq)
 
-
+-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 -- Task 1C
 cycleQR :: QRCell -> QRCell
 cycleQR Alive = Dead
@@ -30,7 +30,7 @@ renderQR Alive = coloured blue  (solidRectangle 1 1)
 renderQR Dead  = coloured black (rectangle 1 1)
 
 
-
+-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 -- Task2X
 nextGenQR :: Grid QRCell -> Grid QRCell
 nextGenQR = undefined -- TODO
@@ -40,7 +40,7 @@ evolveQR :: Int -> Grid QRCell -> Grid QRCell
 evolveQR = undefined -- TODO
 
 
-
+-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 -- Task 1E
 get :: Grid c -> GridCoord -> Maybe c
 get (Grid a b cells) (x,y)
@@ -54,6 +54,7 @@ nthElem a (x,y) = (y+1)*a - (a-x)
 
 
 
+-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 -- Task 1F
 allCoords :: Int -> Int -> [GridCoord]
 allCoords a b = allPairs (b-1) (nList (a-1)) 
@@ -65,7 +66,7 @@ allPairs y cols
     | y==0      = nPair 0 cols
     | otherwise = (allPairs (y-1) cols)++(nPair y cols)
 
--- >> Helper Pairs a list of y's with an x
+-- >> Helper pairs a list of y's with an x
 -- >> Example x and [0,1,2,3] -> [(x,0),(x,1)...]
 nPair :: Int -> [Int] -> [GridCoord]
 nPair y list = case list of
