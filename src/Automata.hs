@@ -23,7 +23,7 @@ data QRCell = Alive | Dead
 
 
 
--- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
 -- | Task 1C
 -- | Swaps state of a cell
 cycleQR :: QRCell -> QRCell
@@ -41,16 +41,16 @@ renderQR Dead  = coloured black (rectangle 1 1)
 
 
 
--- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 -- | Task2A
 -- | Evolves the state of a cell depending on it's neighborhood
 nextGenQR :: Grid QRCell -> Grid QRCell
 nextGenQR (Grid a b cells) = Grid a b (nextGenQrGrid (Grid a b cells) (allCoords a b))
 
 
--- |>> Helper that is used by main function to call the appropriate helpers
+-- |>> Helper that is used by nextGenQR function to call the appropriate helpers
+-- |>> Produces a the evolved state list to feed into nextGenQR
 nextGenQrGrid :: Grid QRCell -> [GridCoord] -> [QRCell]
-nextGenQrGrid (Grid a b cells) cords = case cords of
+nextGenQrGrid (Grid a b cells) coordList = case coordList of
     []   -> []
     z:zs -> (decideEvolve hood state) : (nextGenQrGrid (Grid a b cells) zs)
         where state = get (Grid a b cells) z
@@ -58,7 +58,8 @@ nextGenQrGrid (Grid a b cells) cords = case cords of
 
 
 
--- |>> Helper makes a decision using the neighborhood state
+-- |>> Helper to decide what evolution to make
+-- |>> Based on the state and the number of alive states in the neighborhood
 decideEvolve :: [Maybe QRCell] -> Maybe QRCell -> QRCell
 decideEvolve nbrs state = case state of
     Just Alive
@@ -71,8 +72,8 @@ decideEvolve nbrs state = case state of
       | otherwise            -> Dead
     Nothing                  -> Dead
 
--- |>> Helper that find the states of the four neighbors to (x,y)
--- |>> Occur as [Above,Right,Below,Left]
+-- |>> Helper that finds the states of the four neighbors to (x,y) as a list
+-- |>> Ordered as [Above,Right,Below,Left]
 findHood :: Grid QRCell -> GridCoord -> [Maybe QRCell]
 findHood (Grid a b cells) (x,y) = [(get (Grid a b cells) (x,y-1))
                                   ,(get (Grid a b cells) (x+1,y))
@@ -80,7 +81,7 @@ findHood (Grid a b cells) (x,y) = [(get (Grid a b cells) (x,y-1))
                                   ,(get (Grid a b cells) (x-1,y))]
 
     
--- |>> countStates sees how many neighbors match a state
+-- |>> countStates sees how many neighbors in the findHood list are alive
 countAlive :: [Maybe QRCell] -> Int
 countAlive nbrs = case nbrs of
     []                    -> 0
@@ -89,7 +90,10 @@ countAlive nbrs = case nbrs of
       | otherwise         -> countAlive ys
 
 
--- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+
+
 -- | Task2B
 -- | Evolves the grid through n::Int interpretations
 evolveQR :: Int -> Grid QRCell -> Grid QRCell
@@ -103,7 +107,6 @@ evolveQR n state
 
 
 
--- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 -- | Task 1E
 -- | Returns the state of the cell at (x,y)
 get :: Grid c -> GridCoord -> Maybe c
@@ -122,7 +125,6 @@ nthElem a (x,y) = (y+1)*a - (a-x)
 
 
 
--- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 -- | Task 1F
 -- | Generates a row-major list of all grid coordinates in an axb grid.
 allCoords :: Int -> Int -> [GridCoord]
