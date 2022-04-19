@@ -58,8 +58,7 @@ parseGrid f w h cells
 
 --Task 1B
 toQR :: Char -> QRCell
-toQR cell = case cell of
-  'A' -> Alive
-  ' ' -> Dead
-  _   -> error "toQR: invalid character cell value"
+toQR cell = if (cell=='A') then Alive else Dead
+
+
 
