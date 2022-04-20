@@ -14,7 +14,9 @@ data Grid c = Grid Int Int [c]
 type GridCoord = (Int, Int)
 
 
--- | Task 1A
+
+
+-- ======================== Task 1A ========================= --
 -- | Type of cells used in QR World.
 data QRCell = Alive | Dead
     deriving (Show,Eq)
@@ -22,15 +24,16 @@ data QRCell = Alive | Dead
 
 
 
-
-
--- | Task 1C
+-- ======================== Task 1C ========================= --
 -- | Swaps state of a cell
 cycleQR :: QRCell -> QRCell
 cycleQR Alive = Dead
 cycleQR Dead = Alive
 
--- | Task 1D
+
+
+
+-- ======================== Task 1A ========================= --
 -- | Renders a cell as appropriate dead or alive rectangles
 renderQR :: QRCell -> Picture
 renderQR Alive = coloured blue  (solidRectangle 1 1)
@@ -41,14 +44,20 @@ renderQR Dead  = coloured black (rectangle 1 1)
 
 
 
--- | Task2A
+-- ======================== Task 2A ======================== --
+-- ========================================================= --
 -- | Evolves the state of a cell depending on it's neighborhood
+-- |>> Helper nextGenQrGrid that is used by nextGenQR function to call the appropriate helpers
+-- |   Produces a the evolved state list to feed into nextGenQR
+-- |>> Helper decideEvolve to decide what evolution to make
+-- |   Based on the state and the number of alive states in the neighborhood
+-- |>> Helper findHood that finds the states of the four neighbors to (x,y) as a list
+-- |   Ordered as [Above,Right,Below,Left]
+-- |>> Helper countStates sees how many neighbors in the findHood list are alive
+
 nextGenQR :: Grid QRCell -> Grid QRCell
 nextGenQR (Grid a b cells) = Grid a b (nextGenQrGrid (Grid a b cells) (allCoords a b))
 
-
--- |>> Helper that is used by nextGenQR function to call the appropriate helpers
--- |>> Produces a the evolved state list to feed into nextGenQR
 nextGenQrGrid :: Grid QRCell -> [GridCoord] -> [QRCell]
 nextGenQrGrid (Grid a b cells) coordList = case coordList of
     []   -> []
@@ -56,10 +65,6 @@ nextGenQrGrid (Grid a b cells) coordList = case coordList of
         where state = get (Grid a b cells) z
               hood  = findHood (Grid a b cells) z
 
-
-
--- |>> Helper to decide what evolution to make
--- |>> Based on the state and the number of alive states in the neighborhood
 decideEvolve :: [Maybe QRCell] -> Maybe QRCell -> QRCell
 decideEvolve nbrs state = case state of
     Just Alive
@@ -72,16 +77,12 @@ decideEvolve nbrs state = case state of
       | otherwise            -> Dead
     Nothing                  -> Dead
 
--- |>> Helper that finds the states of the four neighbors to (x,y) as a list
--- |>> Ordered as [Above,Right,Below,Left]
 findHood :: Grid QRCell -> GridCoord -> [Maybe QRCell]
 findHood (Grid a b cells) (x,y) = [(get (Grid a b cells) (x,y-1))
                                   ,(get (Grid a b cells) (x+1,y))
                                   ,(get (Grid a b cells) (x,y+1))
                                   ,(get (Grid a b cells) (x-1,y))]
 
-    
--- |>> countStates sees how many neighbors in the findHood list are alive
 countAlive :: [Maybe QRCell] -> Int
 countAlive nbrs = case nbrs of
     []                    -> 0
@@ -92,10 +93,9 @@ countAlive nbrs = case nbrs of
 
 
 
-
-
--- | Task2B
+-- ======================== Task 2B ======================== --
 -- | Evolves the grid through n::Int interpretations
+
 evolveQR :: Int -> Grid QRCell -> Grid QRCell
 evolveQR n state
     | n<=0      = state
@@ -104,11 +104,11 @@ evolveQR n state
 
 
 
-
-
-
--- | Task 1E
+-- ======================== Task 1E ======================== --
+-- ========================================================= --
 -- | Returns the state of the cell at (x,y)
+-- |>> Helper nthElem to calculate the number element that (x,y) is in the list
+
 get :: Grid c -> GridCoord -> Maybe c
 get (Grid a b cells) (x,y)
     | ((x<0) || (y<0))     = Nothing
@@ -116,35 +116,34 @@ get (Grid a b cells) (x,y)
     | otherwise            = Nothing
     where nth = nthElem a (x,y)
 
--- |>> Helper to calculate the number element that (x,y) is in the list
 nthElem :: Int -> GridCoord -> Int
 nthElem a (x,y) = (y+1)*a - (a-x)
 
 
 
 
-
-
--- | Task 1F
+-- ======================== Task 1F ======================== --
+-- ========================================================= --
 -- | Generates a row-major list of all grid coordinates in an axb grid.
+-- |>> Helper allPairs creates a list of all (x,y) combos
+-- |   Example 1 and [0,1,2,3] -> [(0,0),(1,0),(0,1),(1,1)]
+-- |>> Helper npair pairs a list of y's with an x
+-- |   Example x and [0,1,2,3] -> [(x,0),(x,1)...]
+-- |>> Helper nList returns List of from [0,1,2,...,n]
+
 allCoords :: Int -> Int -> [GridCoord]
 allCoords a b = allPairs (b-1) (nList (a-1)) 
 
--- |>> Helper creates a list of all (x,y) combos
--- |>> Example 1 and [0,1,2,3] -> [(0,0),(1,0),(0,1),(1,1)]
 allPairs :: Int -> [Int] -> [GridCoord] 
 allPairs y cols
     | y==0      = nPair 0 cols
     | otherwise = (allPairs (y-1) cols)++(nPair y cols)
 
--- |>> Helper pairs a list of y's with an x
--- |>> Example x and [0,1,2,3] -> [(x,0),(x,1)...]
 nPair :: Int -> [Int] -> [GridCoord]
 nPair y list = case list of
     []   -> []
     x:xs -> (x,y):(nPair y xs)
 
--- |>> Helper returns List of from [0,1,2,...,n]
 nList :: Int -> [Int]
 nList n
     |      n==0 = [0]

@@ -56,7 +56,11 @@ parseGrid f w h cells
   | length cells == w * h = Grid w h (map f cells)
   | otherwise = error "parseGrid: dimensions don't match"
 
---Task 1B
+
+
+
+-- ======================== Task 1B ======================== --
+-- | Changes cells in the string representation to type QRCell which the program interprets
 toQR :: Char -> QRCell
 toQR cell = if (cell=='A') then Alive else Dead
 
