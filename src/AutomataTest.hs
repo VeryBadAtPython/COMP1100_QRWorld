@@ -14,6 +14,7 @@ tests =
   ++ allCoordsTest
   ++ toQRTests
   ++ evolveQRTests
+  ++ countAliveTests
   
 
 
@@ -37,7 +38,8 @@ getTests = [Test "get: Bottom L 1100" (assertEqual (get pattern1100 (10,2)) ((Ju
 -- ================== allCoords Test ================= --
 -- | Tests it produces an appropriate grid
 allCoordsTest :: [Test]
-allCoordsTest = [Test "allCoords 2 2" (assertEqual (allCoords 2 2) ([(0,0),(1,0),(0,1),(1,1)] :: [GridCoord]))]
+allCoordsTest = [Test "allCoords 2 2" (assertEqual (allCoords 2 2) ([(0,0),(1,0),(0,1),(1,1)] :: [GridCoord]))
+ ,Test "nList 5" (assertEqual (nList 5) ([0,1,2,3,4,5] :: [Int]))]
 
 
 -- ================== toQR Tests     ================= --
@@ -53,8 +55,10 @@ evolveQRTests :: [Test]
 evolveQRTests = [Test "evolveQR: 1100 12 and 14 ==" (assertEqual (evolveQR 12 pattern1100) ((evolveQR 14 pattern1100) :: Grid QRCell))
  ,Test "evolveQR: 1130 20 and 22 ==" (assertEqual (evolveQR 20 pattern1130) ((evolveQR 22 pattern1130) :: Grid QRCell))]
 
-
-
+-- ================== countAlive     ================= --
+countAliveTests :: [Test]
+countAliveTests = [Test "countAlive: all nothing" (assertEqual (countAlive [Nothing, Nothing, Nothing, Nothing]) (0 :: Int))
+ ,Test "countAlive: mixed grill" (assertEqual (countAlive [Just Dead, Nothing, Just Alive, Just Alive]) (2 :: Int))]
 
 -- renderQR Tests
 {-
