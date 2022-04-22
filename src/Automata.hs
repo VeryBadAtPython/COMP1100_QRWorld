@@ -33,7 +33,7 @@ cycleQR Dead = Alive
 
 
 
--- ======================== Task 1A ========================= --
+-- ======================== Task 1D ========================= --
 -- | Renders a cell as appropriate dead or alive rectangles
 renderQR :: QRCell -> Picture
 renderQR Alive = coloured blue  (solidRectangle 1 1)
@@ -68,7 +68,7 @@ nextGenQrGrid (Grid a b cells) coordList = case coordList of
 decideEvolve :: [Maybe QRCell] -> Maybe QRCell -> QRCell
 decideEvolve nbrs state = case state of
     Just Alive
-      | (countAlive nbrs)<2  s-> Dead
+      | (countAlive nbrs)<2  -> Dead
       | (countAlive nbrs)==4 -> Dead
       | otherwise            -> Alive
     Just Dead
@@ -136,7 +136,7 @@ allCoords a b = allPairs (b-1) (nList (a-1))
 
 allPairs :: Int -> [Int] -> [GridCoord] 
 allPairs y cols
-    | y==0      = nPair 0 cols
+    | y<=0      = nPair 0 cols
     | otherwise = (allPairs (y-1) cols)++(nPair y cols)
 
 nPair :: Int -> [Int] -> [GridCoord]
@@ -146,5 +146,5 @@ nPair y list = case list of
 
 nList :: Int -> [Int]
 nList n
-    |      n==0 = [0]
+    |      n<=0 = [0]
     | otherwise = (nList (n-1))++[n]
