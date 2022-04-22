@@ -68,7 +68,7 @@ nextGenQrGrid (Grid a b cells) coordList = case coordList of
 decideEvolve :: [Maybe QRCell] -> Maybe QRCell -> QRCell
 decideEvolve nbrs state = case state of
     Just Alive
-      | (countAlive nbrs)<=2 -> Dead
+      | (countAlive nbrs)<2  s-> Dead
       | (countAlive nbrs)==4 -> Dead
       | otherwise            -> Alive
     Just Dead
