@@ -107,17 +107,13 @@ evolveQR n state
 -- ======================== Task 1E ======================== --
 -- ========================================================= --
 -- | Returns the state of the cell at (x,y)
--- |>> Helper nthElem to calculate the number element that (x,y) is in the list
 
 get :: Grid c -> GridCoord -> Maybe c
 get (Grid a b cells) (x,y)
     | ((x<0) || (y<0))     = Nothing
     | ((x < a) && (y < b)) = Just (cells !! nth)
     | otherwise            = Nothing
-    where nth = nthElem a (x,y)
-
-nthElem :: Int -> GridCoord -> Int
-nthElem a (x,y) = (y+1)*a - (a-x)
+    where nth = y*a+x
 
 
 
