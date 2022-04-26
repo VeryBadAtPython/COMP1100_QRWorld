@@ -37,7 +37,7 @@ cycleQR Dead = Alive
 -- ======================== Task 1D ========================= --
 -- | Renders a cell as appropriate dead or alive rectangles
 renderQR :: QRCell -> Picture
-renderQR Alive = coloured blue  (solidRectangle 1 1)
+renderQR Alive = coloured blue (solidRectangle 1 1)
 renderQR Dead  = coloured black (rectangle 1 1)
 
 

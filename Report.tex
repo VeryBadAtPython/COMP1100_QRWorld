@@ -39,7 +39,7 @@
 \pagenumbering{arabic}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \section*{Introduction} 
-The program detailed in this report is an implementation of Erik Fransson's \textit{QR World} cellular automation with a graphical representation in Haskell.
+The program detailed in this report is an implementation of Erik Fransson's \textit{QR World} cellular automata with a graphical representation in Haskell. The automata is contained within a module called \verb|Automata| with user input handling in module \verb|App| and graphical output handled in \verb|GridRenderer|. Testing is handled by three modules with unit tests within \verb|AutomataTest|.
 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -48,7 +48,7 @@ The program detailed in this report is an implementation of Erik Fransson's \tex
 % Describe what each relevant function does conceptually. (i.e. how does it get you closer to solving the problems outlined in this assignment spec?)
 % How do these functions piece together to make the finished program? Why did you design and implement it this way?
 % What major design choices did you make regarding the functions that you’ve written and the overall structure of your program?
-\paragraph{Task 1}
+\paragraph{Task 1} consisted of 5 functions. Firstly it was chosen to define the type of \verb|QRCell| as either \verb|Dead| or \verb|Alive| as these are more descriptive of the program's meaning than just boolean values. Function \verb|toQR| uses an if then else (ITE) statement to convert values in the textual representation to useful values with \verb|'A'| to \verb| Alive::QRCell| and any other character as \verb|Dead|. An ITE statement was chosen as computationally we only care about if the value is \verb|'A'| or not. \verb|cycleQR| swaps the value of a cell upon cursor clicks. A case statement was chosen due to having greater readability than ITE statement as there was only two cases. If \verb|QRCell| was \verb|Bool| then the function could just be \verb|not|. \verb|renderQR| used a piecewise case definition to render each cell as the specified codeWorld picture. A piecewise definition was used for improved style. \verb|get| retrieves the value of the model at a given \verb|GridCoord|. It is guarded to return \verb|Nothing| for nonsensical arguments. Elsewhere it just retrieves the appropriate element of the model list. \verb|allCoords| generates a row-major list of all grid coordinates in an $a\times b$ for $a,b>0$ grid. It returns an empty list for nonsensical arguments of $a,b\not>0$ for enhanced error tolerance. Otherwise it calls 3 helper functions. \verb|nList| generates an ascending list from 0 to (a-1). \verb|nPair| then pairs each value in the \verb|nList| with some integer. \verb|allPairs| then does this to create one list from (0,0) to (a-1,b-1). The problem was broken up this way out of ease of understanding.
 \paragraph{Task 2}
 
 
