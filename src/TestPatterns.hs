@@ -61,6 +61,7 @@ parseGrid f w h cells
 
 -- ======================== Task 1B ======================== --
 -- | Changes cells in the string representation to type QRCell which the program interprets
+-- | Test exists in AutomataTest
 toQR :: Char -> QRCell
 toQR cell = if (cell=='A') then Alive else Dead
 

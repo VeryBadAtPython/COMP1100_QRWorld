@@ -26,6 +26,7 @@ data QRCell = Alive | Dead
 
 -- ======================== Task 1C ========================= --
 -- | Swaps state of a cell
+-- | Test exists in AutomataTest
 cycleQR :: QRCell -> QRCell
 cycleQR Alive = Dead
 cycleQR Dead = Alive
@@ -47,6 +48,7 @@ renderQR Dead  = coloured black (rectangle 1 1)
 -- ======================== Task 2A ======================== --
 -- ========================================================= --
 -- | Evolves the state of a cell depending on it's neighborhood
+-- | Test exists in AutomataTest
 -- |>> Helper nextGenQrGrid that is used by nextGenQR function to call the appropriate helpers
 -- |   Produces a the evolved state list to feed into nextGenQR
 -- |>> Helper decideEvolve to decide what evolution to make
@@ -95,6 +97,7 @@ countAlive nbrs = case nbrs of
 
 -- ======================== Task 2B ======================== --
 -- | Evolves the grid through n::Int interpretations
+-- | Test exists in AutomataTest
 
 evolveQR :: Int -> Grid QRCell -> Grid QRCell
 evolveQR n state
@@ -107,6 +110,7 @@ evolveQR n state
 -- ======================== Task 1E ======================== --
 -- ========================================================= --
 -- | Returns the state of the cell at (x,y)
+-- | Test exists in AutomataTest
 
 get :: Grid c -> GridCoord -> Maybe c
 get (Grid a b cells) (x,y)
@@ -121,6 +125,8 @@ get (Grid a b cells) (x,y)
 -- ======================== Task 1F ======================== --
 -- ========================================================= --
 -- | Generates a row-major list of all grid coordinates in an axb grid.
+-- | Does not accept dimensions <=0 as they are nonsensical
+-- | Test exists in AutomataTest
 -- |>> Helper allPairs creates a list of all (x,y) combos
 -- |   Example 1 and [0,1,2,3] -> [(0,0),(1,0),(0,1),(1,1)]
 -- |>> Helper npair pairs a list of y's with an x
@@ -128,7 +134,9 @@ get (Grid a b cells) (x,y)
 -- |>> Helper nList returns List of from [0,1,2,...,n]
 
 allCoords :: Int -> Int -> [GridCoord]
-allCoords a b = allPairs (b-1) (nList (a-1)) 
+allCoords a b 
+    | a<=0 || b<=0 = []
+    | otherwise    = allPairs (b-1) (nList (a-1)) 
 
 allPairs :: Int -> [Int] -> [GridCoord] 
 allPairs y cols
