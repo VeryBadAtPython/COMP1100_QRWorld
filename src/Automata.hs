@@ -129,13 +129,13 @@ get (Grid a b cells) (x,y)
 -- | Test exists in AutomataTest
 -- |>> Helper allPairs creates a list of all (x,y) combos
 -- |   Example 1 and [0,1,2,3] -> [(0,0),(1,0),(0,1),(1,1)]
--- |>> Helper npair pairs a list of y's with an x
--- |   Example x and [0,1,2,3] -> [(x,0),(x,1)...]
+-- |>> Helper npair pairs a list of x's with a y
+-- |   Example y and [0,1,2,3] -> [(0,y),(1,y)...]
 -- |>> Helper nList returns List of from [0,1,2,...,n]
 
 allCoords :: Int -> Int -> [GridCoord]
 allCoords a b 
-    | a<=0 || b<=0 = []
+    | a<=0 || b<=0 = error "Invalid grid dimensions"
     | otherwise    = allPairs (b-1) (nList (a-1)) 
 
 allPairs :: Int -> [Int] -> [GridCoord] 

@@ -38,7 +38,7 @@
 \newpage
 \pagenumbering{arabic}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\section*{Introduction} 
+\section{Introduction} 
 The program detailed in this report is an implementation of Erik Fransson's \textit{QR World} cellular automata with a graphical representation in Haskell. The automata is contained within a module called \verb|Automata| with user input handling in module \verb|App| and graphical output handled in \verb|GridRenderer|. Testing is handled by three modules with unit tests within \verb|AutomataTest|.
 
 
@@ -48,16 +48,18 @@ The program detailed in this report is an implementation of Erik Fransson's \tex
 % Describe what each relevant function does conceptually. (i.e. how does it get you closer to solving the problems outlined in this assignment spec?)
 % How do these functions piece together to make the finished program? Why did you design and implement it this way?
 % What major design choices did you make regarding the functions that you’ve written and the overall structure of your program?
-\paragraph{Task 1} consisted of 5 functions. Firstly it was chosen to define the type of \verb|QRCell| as either \verb|Dead| or \verb|Alive| as these are more descriptive of the program's meaning than just boolean values. Function \verb|toQR| uses an if then else (ITE) statement to convert values in the textual representation to useful values with \verb|'A'| to \verb| Alive::QRCell| and any other character as \verb|Dead|. An ITE statement was chosen as computationally we only care about if the value is \verb|'A'| or not. \verb|cycleQR| swaps the value of a cell upon cursor clicks. A case statement was chosen due to having greater readability than ITE statement as there was only two cases. If \verb|QRCell| was \verb|Bool| then the function could just be \verb|not|. \verb|renderQR| used a piecewise case definition to render each cell as the specified codeWorld picture. A piecewise definition was used for improved style. \verb|get| retrieves the value of the model at a given \verb|GridCoord|. It is guarded to return \verb|Nothing| for nonsensical arguments. Elsewhere it just retrieves the appropriate element of the model list. \verb|allCoords| generates a row-major list of all grid coordinates in an $a\times b$ for $a,b>0$ grid. It returns an empty list for nonsensical arguments of $a,b\not>0$ for enhanced error tolerance. Otherwise it calls 3 helper functions. \verb|nList| generates an ascending list from 0 to (a-1). \verb|nPair| then pairs each value in the \verb|nList| with some integer. \verb|allPairs| then does this to create one list from (0,0) to (a-1,b-1). The problem was broken up this way out of ease of understanding.
-\paragraph{Task 2}
+\paragraph{Task 1} consists of 5 functions. Firstly it was chosen to define the type of \verb|QRCell| as either \verb|Dead| or \verb|Alive| as these are more descriptive of the program's meaning than just boolean values. Function \verb|toQR| uses an if then else (ITE) statement to convert values in the textual representation to useful values with \verb|'A'| to \verb| Alive::QRCell| and any other character as \verb|Dead|. An ITE statement was chosen as computationally we only care about if the value is \verb|'A'| or not. \verb|cycleQR| swaps the value of a cell upon cursor clicks. A case statement was chosen due to having greater readability than ITE statement as there was only two cases. If \verb|QRCell| was \verb|Bool| then the function could just be \verb|not|. \verb|renderQR| used a piecewise case definition to render each cell as the specified codeWorld picture. A piecewise definition was used for improved style. \verb|get| retrieves the value of the model at a given \verb|GridCoord|. It is guarded to return \verb|Nothing| for nonsensical arguments. Elsewhere it just retrieves the appropriate element of the model list. \verb|allCoords| generates a row-major list of all grid coordinates in an $a\times b$ for $a,b>0$ grid. It returns an empty list for nonsensical arguments of $a,b\not>0$ for enhanced error tolerance. Otherwise it calls 3 helper functions. \verb|nList| generates an ascending list from 0 to (a-1). \verb|nPair| then pairs each value in the \verb|nList| with some integer. \verb|allPairs| then does this to create one list from (0,0) to (a-1,b-1). The problem was broken up this way out of ease of understanding.
 
+\paragraph{Task 2} consists of two primary functions, \verb|nextGenQR| which parses the automata through one iteration, and \verb|evolveQR| which iterates the automata through $n$ iterations. \verb|nextGenQR| calls the helper functions \verb|allCoords| and \verb|nextGenQrGrid| which is the main function handling the evolution of the grid.
+\verb|nextGenQrGrid| recurses through the \verb|allCoords| list using \verb|get| to retrieve the state at each position and the helper \verb|findHood| to retrieve a list of the states of the four neighbors. The helper \verb|decideEvolve| then chooses updates the state of the cell according to the QRWorld rules. This new state is then prepended to the recursive call on the rest of the list.
+\verb|findHood| uses \verb|get| to retrieve a four element list of \verb|[Maybe QRCell]| to give the states of the neighboring cells. \verb|decideEvolve| then calls \verb|countAlive| to then make a decision about what each cell state should evolve to depending on how many alive neighbors it has. To do this it cases on the state of the cell and is then guarded by the number of alives to evolve the state properly. \verb|countAlive| just uses a case and nested guard recursion to sort through the list of neighboring states and returns the number that are alive. \verb|evolveQR| recurses down to a base of 1 from a natural $n$ applying \verb|nextGenQR| to itself $n$ times.
 
 \subsection{Structure}
 
 
 
  \subsection{Assumptions}%Describe assumptions you have made about how a user might use the program and how this has influenced your design decisions.
-
+Whilst writing \verb|get| it was assumed that attempts to retrieve a point outside the grid should return \verb|Nothing :: Maybe QRCell| as doing so eased implementation of \verb|findHood| and \verb|countAlive| far more than returning an error would. It was initially assumed that nonsensical inputs to \verb|allCoords| shpould retun an empty list but this was revised to return an error as specified.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -66,7 +68,7 @@ The program detailed in this report is an implementation of Erik Fransson's \tex
 %Be specific about this - the tutors know that you have tested your program, but they want to know how.
 %Describe the tests that prove individual functions on their own behave as expected (i.e. testing a function with different inputs and doing a calculation by hand to check that the outputs are correct).
 %How did you test the entire program? What tests did you perform to show that the program behaves as expected in all (even unusual) cases?
-
+The tests were divided into 6 groups: cycleQRTests, getTests, allCoordsTest, toQRTests, evolveQRTests and countAliveTests. Each test group tests a particular function or group of functions. \verb|cycleQRTests| is a fully comprehensive test group for \verb|cycleQR| indicating its correctness. 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \section{Reflection}
@@ -79,6 +81,7 @@ The program detailed in this report is an implementation of Erik Fransson's \tex
       %discussion about what you did try, and the results of these attempts.
   %What would you have done differently if you were to do it again
     %What changes to the design and structure you would make if you wrote the program again from scratch?
+Development of the program followed a linear process parallel to order of assignment specifications.  Design decisions were made with both functionality and style in focus to make proper use of haskell's recursive propensity. Consequently the program is quite readable especially when supplemented with effective commenting. The program was within the authors technical abilities and so they did not collaborate with others in any significant way.
 %Are parts of the program confusing for the reader? You can explain them in the report (in this situation you should also make use of comments in your code).
   %If you collaborated with others, what was the nature of the collaboration? (Note that you are only allowed to collaborate by discussing concepts, not sharing solutions.)
   %Collaborating is any discussion or work done together on planning or writing your assignment.

@@ -49,15 +49,15 @@ getTests = [Test "get: (-1,-1)" (assertEqual (get (Grid 2 2 [Alive, Alive, Dead,
 -- |>> (1) Tests a produce a typical basic grid
 -- |>> (2) Tests a typical input to helper nPair
 -- |>> (3) Tests a typical input to helper nList
--- |>> (4) Tests allCoords 0 0 -> []
--- |>> (5) Tests allCoords (-1) (-1) -> []
--- |       (4)&(5) are edge cases of nonsensical inputs
+-- |>> X (4) Tests allCoords 0 0 -> []
+-- |>> X (5) Tests allCoords (-1) (-1) -> []
+-- |       (4)&(5) are edge cases of nonsensical inputs (Not run as code changed to return error on such inputs)
 allCoordsTest :: [Test]
 allCoordsTest = [Test "allCoords 2 2" (assertEqual (allCoords 2 2) ([(0,0),(1,0),(0,1),(1,1)] :: [GridCoord]))
  ,Test "nPair 2 [1,2,3]" (assertEqual (nPair 2 [0,1,2]) ([(0,2),(1,2),(2,2)] :: [GridCoord]))
- ,Test "nList 5" (assertEqual (nList 5) ([0,1,2,3,4,5] :: [Int]))
- ,Test "allCoords 0 0" (assertEqual (allCoords 0 0) ([] :: [GridCoord]))
- ,Test "allCoords (-1) (-1)" (assertEqual (allCoords (-1) (-1)) ([] :: [GridCoord]))]
+ ,Test "nList 5" (assertEqual (nList 5) ([0,1,2,3,4,5] :: [Int]))]
+ -- ,Test "allCoords 0 0" (assertEqual (allCoords 0 0) ([] :: [GridCoord]))
+ -- ,Test "allCoords (-1) (-1)" (assertEqual (allCoords (-1) (-1)) ([] :: [GridCoord]))]
 
 
 -- ================== toQR Tests     ================= --
