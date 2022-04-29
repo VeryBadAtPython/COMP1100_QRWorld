@@ -3,7 +3,8 @@
 \contentsline {subsection}{\numberline {2.1}Design and Technical Decisions}{1}{}%
 \contentsline {paragraph}{Task 1}{1}{}%
 \contentsline {paragraph}{Task 2}{1}{}%
-\contentsline {subsection}{\numberline {2.2}Structure}{2}{}%
-\contentsline {subsection}{\numberline {2.3}Assumptions}{2}{}%
+\contentsline {subsection}{\numberline {2.2}Assumptions}{2}{}%
 \contentsline {section}{\numberline {3}Testing}{2}{}%
-\contentsline {section}{\numberline {4}Reflection}{2}{}%
+\contentsline {paragraph}{Unit tests}{2}{}%
+\contentsline {paragraph}{GUI tests}{2}{}%
+\contentsline {section}{\numberline {4}Reflection}{3}{}%

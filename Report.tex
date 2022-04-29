@@ -54,12 +54,12 @@ The program detailed in this report is an implementation of Erik Fransson's \tex
 \verb|nextGenQrGrid| recurses through the \verb|allCoords| list using \verb|get| to retrieve the state at each position and the helper \verb|findHood| to retrieve a list of the states of the four neighbors. The helper \verb|decideEvolve| then chooses updates the state of the cell according to the QRWorld rules. This new state is then prepended to the recursive call on the rest of the list.
 \verb|findHood| uses \verb|get| to retrieve a four element list of \verb|[Maybe QRCell]| to give the states of the neighboring cells. \verb|decideEvolve| then calls \verb|countAlive| to then make a decision about what each cell state should evolve to depending on how many alive neighbors it has. To do this it cases on the state of the cell and is then guarded by the number of alives to evolve the state properly. \verb|countAlive| just uses a case and nested guard recursion to sort through the list of neighboring states and returns the number that are alive. \verb|evolveQR| recurses down to a base of 1 from a natural $n$ applying \verb|nextGenQR| to itself $n$ times.
 
-\subsection{Structure}
+%\subsection{Structure}
 
 
 
  \subsection{Assumptions}%Describe assumptions you have made about how a user might use the program and how this has influenced your design decisions.
-Whilst writing \verb|get| it was assumed that attempts to retrieve a point outside the grid should return \verb|Nothing :: Maybe QRCell| as doing so eased implementation of \verb|findHood| and \verb|countAlive| far more than returning an error would. It was initially assumed that nonsensical inputs to \verb|allCoords| shpould retun an empty list but this was revised to return an error as specified.
+Whilst writing \verb|get| it was assumed that attempts to retrieve a point outside the grid should return \verb|Nothing :: Maybe QRCell| as doing so eased implementation of \verb|findHood| and \verb|countAlive| far more than returning an error would. It was initially assumed that nonsensical inputs to \verb|allCoords| should return an empty list but this was revised to return an error as specified.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -68,8 +68,8 @@ Whilst writing \verb|get| it was assumed that attempts to retrieve a point outsi
 %Be specific about this - the tutors know that you have tested your program, but they want to know how.
 %Describe the tests that prove individual functions on their own behave as expected (i.e. testing a function with different inputs and doing a calculation by hand to check that the outputs are correct).
 %How did you test the entire program? What tests did you perform to show that the program behaves as expected in all (even unusual) cases?
-The tests were divided into 6 groups: cycleQRTests, getTests, allCoordsTest, toQRTests, evolveQRTests and countAliveTests. Each test group tests a particular function or group of functions. \verb|cycleQRTests| is a fully comprehensive test group for \verb|cycleQR| indicating its correctness. 
-
+\paragraph{Unit tests} were divided into 6 groups: cycleQRTests, getTests, allCoordsTest, toQRTests, evolveQRTests and countAliveTests. Each test group tests a particular function or group of functions. \verb|cycleQRTests| is a fully comprehensive test group for \verb|cycleQR| indicating its correctness. \verb|toQR| is tested against tests two typical cases and an edge case. The tests for \verb|get| cover most possible edge cases and also some typical cases as documented in the \verb|automataTest| file. The tests for \verb|allCoords| covers some expected inputs to both the main function and helpers. There were no edge case tests written as such cases are written to return an error and there was no provision to test if an error is returned. \verb|evolveQR| was tested with three unit tests which in turn test \verb|nextGenQR| due to their dependencies. The first two tests tested if the 1100 pattern would get to an alternating steady state after 12 evolutions and the third if th 1130 pattern reached steady state eventually as specified. All tests passed idicating program correctness.
+\paragraph{GUI tests} focussed on the behaviour of functions that the user directly interacts with. \verb|get| and \verb|cycleQR| were tested by clicking cells with various states and checking if the appropriate cell switched state. \verb|decideEvolve| was tested by observing the evolution of a single cell in various neighborhoods compared against the rules of QRWorld. All tests passed idicating program correctness.
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \section{Reflection}
 %Discuss the reasoning behind your decisions, rather than what the decisions were. You can reflect on not only the decisions you made, but the process through which you developed the final program:

@@ -29,7 +29,7 @@ data QRCell = Alive | Dead
 -- | Test exists in AutomataTest
 cycleQR :: QRCell -> QRCell
 cycleQR Alive = Dead
-cycleQR Dead = Alive
+cycleQR Dead  = Alive
 
 
 
