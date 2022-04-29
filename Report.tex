@@ -54,8 +54,14 @@ The program detailed in this report is an implementation of Erik Fransson's \tex
 \verb|nextGenQrGrid| recurses through the \verb|allCoords| list using \verb|get| to retrieve the state at each position and the helper \verb|findHood| to retrieve a list of the states of the four neighbors. The helper \verb|decideEvolve| then chooses updates the state of the cell according to the QRWorld rules. This new state is then prepended to the recursive call on the rest of the list.
 \verb|findHood| uses \verb|get| to retrieve a four element list of \verb|[Maybe QRCell]| to give the states of the neighboring cells. \verb|decideEvolve| then calls \verb|countAlive| to then make a decision about what each cell state should evolve to depending on how many alive neighbors it has. To do this it cases on the state of the cell and is then guarded by the number of alives to evolve the state properly. \verb|countAlive| just uses a case and nested guard recursion to sort through the list of neighboring states and returns the number that are alive. \verb|evolveQR| recurses down to a base of 1 from a natural $n$ applying \verb|nextGenQR| to itself $n$ times.
 
-%\subsection{Structure}
-
+\newpage
+\subsection{Structure}
+The program and the test program have module and function dependencies according to the following graph: 
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{funcDep.png}
+  \end{figure}
+\newpage
 
 
  \subsection{Assumptions}%Describe assumptions you have made about how a user might use the program and how this has influenced your design decisions.
