@@ -16,7 +16,7 @@ type GridCoord = (Int, Int)
 
 
 
--- ======================== Task 1A ========================= --
+-- ======================== Task 1A ======================== --
 -- | Type of cells used in QR World.
 data QRCell = Alive | Dead
     deriving (Show,Eq)
@@ -24,7 +24,7 @@ data QRCell = Alive | Dead
 
 
 
--- ======================== Task 1C ========================= --
+-- ======================== Task 1C ======================== --
 -- | Swaps state of a cell
 -- | Test exists in AutomataTest
 cycleQR :: QRCell -> QRCell
@@ -34,7 +34,7 @@ cycleQR Dead  = Alive
 
 
 
--- ======================== Task 1D ========================= --
+-- ======================== Task 1D ======================== --
 -- | Renders a cell as appropriate dead or alive rectangles
 renderQR :: QRCell -> Picture
 renderQR Alive = coloured blue (solidRectangle 1 1)
@@ -49,16 +49,18 @@ renderQR Dead  = coloured black (rectangle 1 1)
 -- ========================================================= --
 -- | Evolves the state of a cell depending on it's neighborhood
 -- | Test exists in AutomataTest
--- |>> Helper nextGenQrGrid that is used by nextGenQR function to call the appropriate helpers
+-- |>> Helper nextGenQrGrid that is used by nextGenQR function
+-- |   Calls the appropriate helpers
 -- |   Produces a the evolved state list to feed into nextGenQR
 -- |>> Helper decideEvolve to decide what evolution to make
 -- |   Based on the state and the number of alive states in the neighborhood
--- |>> Helper findHood that finds the states of the four neighbors to (x,y) as a list
--- |   Ordered as [Above,Right,Below,Left]
+-- |>> Helper findHood that finds the states of the four neighbors to (x,y)
+-- |   Outputs a list ordered as [Above,Right,Below,Left]
 -- |>> Helper countStates sees how many neighbors in the findHood list are alive
 
 nextGenQR :: Grid QRCell -> Grid QRCell
-nextGenQR (Grid a b cells) = Grid a b (nextGenQrGrid (Grid a b cells) (allCoords a b))
+nextGenQR (Grid a b cells) =
+    Grid a b (nextGenQrGrid (Grid a b cells) (allCoords a b))
 
 nextGenQrGrid :: Grid QRCell -> [GridCoord] -> [QRCell]
 nextGenQrGrid (Grid a b cells) coordList = case coordList of
