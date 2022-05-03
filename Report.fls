@@ -324,8 +324,8 @@ OUTPUT Report.toc
 OUTPUT Report.pdf
 INPUT C:\Users\Jacob Bos\AppData\Local\MiKTeX\pdftex\config\pdftex.map
 INPUT C:\Users\Jacob Bos\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
-INPUT C:\Users\Jacob Bos\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
 INPUT C:\Users\Jacob Bos\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
+INPUT C:\Users\Jacob Bos\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
 INPUT .\funcDep.png
 INPUT .\funcDep.png
 INPUT funcDep.png
