@@ -1,13 +1,11 @@
 \contentsline {section}{\numberline {1}Introduction}{1}{}%
 \contentsline {section}{\numberline {2}Documentation}{1}{}%
-\contentsline {subsection}{\numberline {2.1}Design}{1}{}%
+\contentsline {subsection}{\numberline {2.1}Design Documentation and Technical Decisions}{1}{}%
 \contentsline {paragraph}{Task 1}{1}{}%
 \contentsline {paragraph}{Task 2}{1}{}%
-\contentsline {subsection}{\numberline {2.2}Structure}{2}{}%
-\contentsline {subsection}{\numberline {2.3}Assumptions}{3}{}%
-\contentsline {section}{\numberline {3}Testing}{3}{}%
-\contentsline {paragraph}{Unit tests}{3}{}%
-\contentsline {paragraph}{GUI tests}{3}{}%
-\contentsline {section}{\numberline {4}Reflection}{3}{}%
-\contentsline {subsection}{\numberline {4.1}Technical Decisions}{3}{}%
-\contentsline {subsection}{\numberline {4.2}Reflection}{4}{}%
+\contentsline {subsection}{\numberline {2.2}Structure}{3}{}%
+\contentsline {subsection}{\numberline {2.3}Assumptions}{4}{}%
+\contentsline {section}{\numberline {3}Testing}{4}{}%
+\contentsline {paragraph}{Unit tests}{4}{}%
+\contentsline {paragraph}{GUI tests}{4}{}%
+\contentsline {section}{\numberline {4}Reflection}{4}{}%

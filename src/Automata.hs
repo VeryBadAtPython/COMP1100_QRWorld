@@ -72,20 +72,22 @@ nextGenQrGrid (Grid a b cells) coordList = case coordList of
 decideEvolve :: [Maybe QRCell] -> Maybe QRCell -> QRCell
 decideEvolve nbrs state = case state of
     Just Alive
-      | (countAlive nbrs)<2  -> Dead
-      | (countAlive nbrs)==4 -> Dead
-      | otherwise            -> Alive
+      | alive < 2  -> Dead
+      | alive == 4 -> Dead
+      | otherwise  -> Alive
     Just Dead
-      | (countAlive nbrs)==2 -> Alive
-      | (countAlive nbrs)==4 -> Alive
-      | otherwise            -> Dead
-    Nothing                  -> Dead
+      | alive == 2 -> Alive
+      | alive == 4 -> Alive
+      | otherwise  -> Dead
+    _              -> Dead
+    where alive = countAlive nbrs
 
 findHood :: Grid QRCell -> GridCoord -> [Maybe QRCell]
-findHood (Grid a b cells) (x,y) = [(get (Grid a b cells) (x,y-1))
-                                  ,(get (Grid a b cells) (x+1,y))
-                                  ,(get (Grid a b cells) (x,y+1))
-                                  ,(get (Grid a b cells) (x-1,y))]
+findHood (Grid a b cells) (x,y) = 
+    [(get (Grid a b cells) (x,y-1))
+    ,(get (Grid a b cells) (x+1,y))
+    ,(get (Grid a b cells) (x,y+1))
+    ,(get (Grid a b cells) (x-1,y))]
 
 countAlive :: [Maybe QRCell] -> Int
 countAlive nbrs = case nbrs of
