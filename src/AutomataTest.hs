@@ -5,7 +5,8 @@ import Testing
 import TestPatterns -- To test toQR and use test patterns
 
 -- ==================== Unit Tests ==================== --
--- | This function calls all teh test groups detailed below
+-- | This function calls all the test groups detailed below
+
 tests :: [Test]
 tests =
   cycleQRTests
@@ -20,9 +21,13 @@ tests =
 
 -- ================== cycleQR Tests  ================= --
 -- | Tests both possible inputs to cycleQR
+
 cycleQRTests :: [Test]
-cycleQRTests = [Test "cycleQR Alive" (assertEqual (cycleQR Dead) (Alive::QRCell))
+cycleQRTests = 
+  [Test "cycleQR Alive" (assertEqual (cycleQR Dead) (Alive::QRCell))
  ,Test "cycleQR Dead" (assertEqual (cycleQR Alive) (Dead::QRCell))]
+
+
 
 
 -- ================== get Tests      ================= --
@@ -36,9 +41,11 @@ cycleQRTests = [Test "cycleQR Alive" (assertEqual (cycleQR Dead) (Alive::QRCell)
 -- |>> (5) Check can get (0,1 )from a 2x2
 -- |>> (6) Check something outside 2x2 -> Nothing
 -- |       3->5 are tests of a typical inputs whiles 1,2,6 are edge cases
+
 getTests :: [Test]
-getTests = [Test "get: (-1,-1)" (assertEqual (get (Grid 2 2 [Alive, Alive, Dead
-    , Dead]) (-1,1)) (Nothing::Maybe QRCell))
+getTests = 
+  [Test "get: (-1,-1)" (assertEqual (get (Grid 2 2 [Alive, Alive, Dead, Dead])
+   (-1,1)) (Nothing::Maybe QRCell))
   ,Test "get: (500,30)" (assertEqual (get (Grid 2 2 [Alive, Alive, Dead, Dead])
    (500,30)) (Nothing::Maybe QRCell))
  ,Test "get: Bottom L 1100" (assertEqual (get pattern1100 (10,2))
@@ -51,6 +58,8 @@ getTests = [Test "get: (-1,-1)" (assertEqual (get (Grid 2 2 [Alive, Alive, Dead
   , Dead]) (0,3)) (Nothing ::Maybe c)) ]
 
 
+
+
 -- ================== allCoords Test ================= --
 -- | Tests it produces an appropriate grid
 -- |>> (1) Tests production of a typical basic grid
@@ -61,10 +70,12 @@ getTests = [Test "get: (-1,-1)" (assertEqual (get (Grid 2 2 [Alive, Alive, Dead
 -- |>> X (6) Tests allCoords (-1) (-1) -> []
 -- |       (5)&(6) are edge cases of nonsensical inputs 
 -- |       (Not run as code changed to return error on such inputs)
+
 allCoordsTest :: [Test]
-allCoordsTest = [Test "allCoords 2 2" (assertEqual (allCoords 2 2)
+allCoordsTest = 
+  [Test "allCoords 2 2" (assertEqual (allCoords 2 2)
    ([(0,0),(1,0),(0,1),(1,1)] :: [GridCoord]))
-  ,Test "allCoords 3 2" (assertEqual (allCoords 2 2)
+  ,Test "allCoords 3 2" (assertEqual (allCoords 3 2)
    ([(0,0),(1,0),(2,0),(0,1),(1,1),(2,1)] :: [GridCoord]))
  ,Test "nPair 2 [1,2,3]" (assertEqual (nPair 2 [0,1,2])
    ([(0,2),(1,2),(2,2)] :: [GridCoord]))
@@ -74,14 +85,19 @@ allCoordsTest = [Test "allCoords 2 2" (assertEqual (allCoords 2 2)
  --   ([] :: [GridCoord]))]
 
 
+
+
 -- ================== toQR Tests     ================= --
 -- | Tests it produces right output for the two main input cases 'A' and ' '
 -- |>> (1)&(2) for above
 -- |>> (3) tests edge case of '9' -> Dead
+
 toQRTests :: [Test]
 toQRTests = [Test "toQR \'A\'" (assertEqual (toQR 'A') (Alive::QRCell))
  ,Test "toQR \' \'" (assertEqual (toQR ' ') (Dead::QRCell))
  ,Test "toQR \'9\'" (assertEqual (toQR '9') (Dead::QRCell))]
+
+
 
 
 -- ================== evolveQR Tests ================= --
@@ -91,6 +107,7 @@ toQRTests = [Test "toQR \'A\'" (assertEqual (toQR 'A') (Alive::QRCell))
 -- |>> (1) Checks evolutions 12 and 14 of 1100 pattern are equal
 -- |>> (2) Checks evolutions 13 and 15 of 1100 pattern are equal
 -- |>> (3) Checks evolutions 20 and 22 of 1130 pattern are equal
+
 evolveQRTests :: [Test]
 evolveQRTests = [Test "evolveQR: 1100 12 and 14 ==" (assertEqual 
   (evolveQR 12 pattern1100) ((evolveQR 14 pattern1100) :: Grid QRCell))
@@ -99,18 +116,26 @@ evolveQRTests = [Test "evolveQR: 1100 12 and 14 ==" (assertEqual
  ,Test "evolveQR: 1130 20 and 22 ==" (assertEqual 
   (evolveQR 20 pattern1130) ((evolveQR 22 pattern1130) :: Grid QRCell))]
 
+
+
+
 -- ================== countAlive     ================= --
 -- | Tests that countAlive is working for typical inputs
 -- | Due to typing there are no edge cases
 -- |>> (1) all Nothing whereas (2) mixed values
+
 countAliveTests :: [Test]
 countAliveTests = [Test "countAlive: all nothing" (assertEqual 
   (countAlive [Nothing, Nothing, Nothing, Nothing]) (0 :: Int))
  ,Test "countAlive: mixed grill" (assertEqual 
   (countAlive [Just Dead, Nothing, Just Alive, Just Alive]) (2 :: Int))]
 
+
+
+
 -- ================== renderQR       ================= --
 -- | Decided could be tested by just looking at the GUI
+-- | Not possible as no Eq instance for Picture
 {-
 renderQRTests :: [Test]
 renderQRTests = [Test "renderQR Alive" (assertEqual (renderQR: Alive)

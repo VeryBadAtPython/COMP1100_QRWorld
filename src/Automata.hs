@@ -55,7 +55,7 @@ renderQR Dead  = coloured black (rectangle 1 1)
 -- |>> Helper decideEvolve to decide what evolution to make
 -- |   Based on the state and the number of alive states in the neighborhood
 -- |>> Helper findHood that finds the states of the four neighbors to (x,y)
--- |   Outputs a list ordered as [Above,Right,Below,Left]
+-- |   Outputs a list ordered as [Below,Right,Above,Left]
 -- |>> Helper countStates sees how many neighbors in the findHood list are alive
 
 nextGenQR :: Grid QRCell -> Grid QRCell
